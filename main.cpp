@@ -38,6 +38,8 @@ int main(int argc, char const *argv[]) {
 
     cin.get();
     return EXIT_SUCCESS;
+
+    return 0;
 }
 
 void testSimpleLinkedList() {
@@ -77,13 +79,11 @@ void testDoubleLinkedList() {
     for (int i = 0; i < 5; i++) {
         integers.push_front(2 * i + 1);
     }
-    
     ite = integers.begin();
     ++ite;
     cout << *ite << " ";
     ++ite;
     cout << *ite << " ";
     --ite;
-    cout << *ite << " ";
-    cout << endl << endl;
+    cout << *ite << " "<<endl;
 }

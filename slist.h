@@ -4,11 +4,15 @@
 #include "iterator.h"
 
 template <class T>
-class SListIterator : public Iterator<T> {     
+class SListIterator : 
+public Iterator<T> {     
     public: 
         SListIterator() : Iterator<T>() {};
         SListIterator(Node<T> *current) : Iterator<T>(current) {};
-        SListIterator<T> operator++();
+        SListIterator<T> operator++(){
+            this->current=this->current->next;
+            return *this;
+        };
 };
 
 template <typename Tr>
@@ -28,23 +32,53 @@ class SList {
         };
 
         bool find(T search, Node<T> **&pointer) {
-            // TODO
+            pointer=&head;
+            while(*pointer && cmp(search,(*pointer)->data)){
+                
+                if(search == (*pointer)->data){
+                    return true;
+                }
+                pointer = &((*pointer)->next);
+            }
+            return false;
         }
              
         bool insert(T data) {
-            // TODO
+            Node<T> **pointer;
+            //pointer=&head;
+            if(!find(data,pointer)){
+                Node<T>* nuevo_nodo = new Node<T>(data);
+                nuevo_nodo->next=*pointer;
+                (*pointer)= nuevo_nodo;
+                return true;
+            }else{
+                return false;
+            }
+            
         }
              
         bool remove(T item) {
-            // TODO
+           Node<T>* temp;
+           Node<T> **pointer;
+           
+           if(find(item,pointer)){
+
+           temp=*pointer;
+           (*pointer)=(*pointer)->next;
+           delete temp;
+           return true;
+           }else{
+            return false;
+           }
+
         }  
              
         iterator begin() {
-            // TODO
+            return  iterator(head);
         }
              
         iterator end() {
-            // TODO
+            return iterator(nullptr);
         }
              
         ~SList() {
